@@ -18,3 +18,15 @@ COPY . .
 
 #ejecutar el proyecto
 RUN pnpm build
+
+#Etapa 2: Produccion
+FROM nginx:alpine as production
+
+# Copiar los archivos construidos desde la etapa de construcción
+COPY --from=build /app/dist /usr/share/nginx/html
+
+#puerto en el que se ejecutará la aplicación
+EXPOSE 80
+
+# Iniciar Nginx en primer plano
+CMD ["nginx", "-g", "daemon off;"]
