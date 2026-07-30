@@ -1,5 +1,5 @@
 #Etapa 1: Construir la imagen de Docker
-FROM node:22-alpine AS build
+FROM node:22-alpine as build
 
 # Establecer el directorio de trabajo
 WORKDIR /app
@@ -20,7 +20,7 @@ COPY . .
 RUN pnpm build
 
 #Etapa 2: Produccion
-FROM nginx:alpine AS production
+FROM nginx:alpine as production
 
 # Copiar los archivos construidos desde la etapa de construcción
 COPY --from=build /app/dist /usr/share/nginx/html
